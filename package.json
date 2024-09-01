@@ -1,6 +1,6 @@
 {
-  "name": "markndown-enhancement",
-  "displayName": "Markndown Enhancement",
+  "name": "markdown-assistant",
+  "displayName": "Markndown Assistant",
   "description": "Improve markdown writing experience",
   "repository": "https://github.com/lyx-jay/easy-markdown",
   "version": "0.0.1",
