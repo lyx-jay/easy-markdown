@@ -1,8 +1,10 @@
 {
-  "name": "easy-markdown",
-  "displayName": "easy-markdown",
+  "name": "markndown-enhancement",
+  "displayName": "Markndown Enhancement",
   "description": "Improve markdown writing experience",
+  "repository": "https://github.com/lyx-jay/easy-markdown",
   "version": "0.0.1",
+  "publisher": "lyx",
   "engines": {
     "vscode": "^1.92.0"
   },
