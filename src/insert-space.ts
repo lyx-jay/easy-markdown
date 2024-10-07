@@ -28,17 +28,10 @@ function currentDocumentRange(doc: vscode.TextDocument) {
 
 export function registerInsertSpaceCommand() {
 
-  return vscode.commands.registerCommand("easy-markdown.insertSpace", () => {
-    const editor = vscode.window.activeTextEditor;
-    if (!editor) {
-      return;
-    }
+  return vscode.commands.registerCommand("markdown-assistant.insertSpace", () => {
+    const editor = vscode.window.activeTextEditor!;
 
     const document = editor.document;
-    const fileType = document.languageId;
-    if (fileType !== 'markdown') {
-      return;
-    }
 
     editor.edit(editBuilder => {
 

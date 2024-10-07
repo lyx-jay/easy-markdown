@@ -4,6 +4,7 @@
   "description": "Improve markdown writing experience",
   "repository": "https://github.com/lyx-jay/easy-markdown",
   "version": "0.0.1",
+  "icon": "./markdown.png",
   "publisher": "lyx",
   "engines": {
     "vscode": "^1.92.0"
@@ -18,16 +19,19 @@
   "contributes": {
     "commands": [
       {
-        "command": "easy-markdown.single",
-        "title": "EasyMarkdown: backquote"
+        "command": "markdown-assistant.single",
+        "title": "Markdown Assistant: add single backtick",
+        "when": "editorLangId == markdown && editorTextFocus"
       },
       {
-        "command": "easy-markdown.batching",
-        "title": "EasyMarkdown: batch backquote"
+        "command": "markdown-assistant.batching",
+        "title": "Markdown Assistant: add batch backtick",
+        "when": "editorLangId == markdown && editorTextFocus"
       },
       {
-        "command": "easy-markdown.insertSpace",
-        "title": "EasyMarkdown: 插入空格"
+        "command": "markdown-assistant.insertSpace",
+        "title": "Markdown Assistant: insert space",
+        "when": "editorLangId == markdown && editorTextFocus"
       }
     ]
   },

@@ -3,7 +3,15 @@ import { registerInsertSpaceCommand } from './insert-space';
 import { registerProcessInlineCodeCommand, registerProcessBatchInlineCodeCommand } from './process-inline-code';
 
 export const activate = (context: vscode.ExtensionContext) => {
-
+	const editor = vscode.window.activeTextEditor;
+	if (!editor) {
+		return;
+	}
+	const document = editor.document;
+	const fileType = document.languageId;
+	if (fileType !== 'markdown') {
+		return;
+	}
 	const commands = [
 		registerInsertSpaceCommand(),
 		registerProcessInlineCodeCommand(),
@@ -12,3 +20,4 @@ export const activate = (context: vscode.ExtensionContext) => {
 	// @ts-ignore
 	context.subscriptions.push(...commands);
 };
+

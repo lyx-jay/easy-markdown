@@ -22,6 +22,7 @@
         "**/*.d.ts",
         "tsconfig.json",
         "package.json",
-        ".eslintrc.json"
+        ".eslintrc.json",
+        "*.md"
     ]
 }

@@ -52,30 +52,26 @@ export function isTextStartWithAchor(line: string) {
 
 export function registerProcessInlineCodeCommand() {
   const singleChange = vscode.commands.registerCommand(
-    "easy-markdown.single",
+    "markdown-assistant.single",
     () => {
       // 获取当前打开的编辑窗口
-      const editor = vscode.window.activeTextEditor;
-      if (!editor) {
-        return;
-      }
+      const editor = vscode.window.activeTextEditor!;
 
       // 获取当前打开的文档，只处理 Markdown 文件
       const document = editor.document;
-      const fileType = document.languageId;
-      if (fileType !== "markdown") {
-        return;
-      }
 
       // 如果当前有选中的文本,则只对选中的文本进行处理
       const selection = editor.selection;
       const selectedText = document.getText(selection);
       if (selectedText) {
-        // 进行处理并替换选中的文本
         const processedText = processInlineText(selectedText, "single");
         editor.edit((builder) => {
           builder.replace(selection, processedText);
         });
+      } else {
+        vscode.window.showInformationMessage(
+          "please select the text you want to process"
+        );
       }
     }
   );
@@ -87,20 +83,13 @@ export function registerProcessInlineCodeCommand() {
 
 export function registerProcessBatchInlineCodeCommand() {
   const batchingChange = vscode.commands.registerCommand(
-    "easy-markdown.batching",
+    "markdown-assistant.batching",
     () => {
       // 获取当前打开的编辑窗口
-      const editor = vscode.window.activeTextEditor;
-      if (!editor) {
-        return;
-      }
+      const editor = vscode.window.activeTextEditor!;
 
       // 获取当前打开的文档，只处理 Markdown 文件
       const document = editor.document;
-      const fileType = document.languageId;
-      if (fileType !== "markdown") {
-        return;
-      }
 
       // 如果当前有选中的文本,则只对选中的文本进行处理
       const selection = editor.selection;
