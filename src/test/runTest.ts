@@ -1,5 +1,5 @@
 import * as path from 'path';
-
+//@ts-ignore
 import { runTests } from '@vscode/test-electron';
 
 async function main() {

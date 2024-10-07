@@ -20,6 +20,8 @@
         "out",
         "dist",
         "**/*.d.ts",
-        "tsconfig.json"
+        "tsconfig.json",
+        "package.json",
+        ".eslintrc.json"
     ]
-};
+}
