@@ -28,16 +28,8 @@ export function isTextInComment(text: string, markdownContent: string): boolean 
   return false;
 }
 
-export function isTextInCodeBlock(text: string, markdownContent: string): boolean {
-  const codeBlockRegex = /`([^`]+)`/g;
-  // console.log('isTextInCodeBlock', codeBlockRegex.exec(markdownContent));
-  let match;
-  while ((match = codeBlockRegex.exec(markdownContent))!== null) {
-      if (match[1].includes(text)) {
-          return true;
-      }
-  }
-  return false;
+export function isTextInCodeBlock(lineNumber: number, codeBlockRanges: number[][]): boolean {
+  return codeBlockRanges.some(range => range[0] <= lineNumber && range[1] >= lineNumber);
 }
 
 export function isTextStartWithAchor(line: string) {
@@ -46,6 +38,23 @@ export function isTextStartWithAchor(line: string) {
   } else {
     return false;
   }
+}
+
+export function queryCodeBlockRange(document: vscode.TextDocument) {
+  const matches = [];
+  const selectedText = '```';
+  for (let i = 0; i < document.lineCount; i++) {
+    const line = document.lineAt(i);
+    if (line.text.startsWith(selectedText)) {
+      matches.push({ lineNumber: i, text: line.text });
+    }
+  }
+  const res:number[][] = [];
+
+  for (let i = 0; i < matches.length; i += 2) {
+    res.push([matches[i].lineNumber, matches[i + 1].lineNumber]);
+  }
+  return res;
 }
 
 
@@ -82,6 +91,57 @@ export function registerProcessInlineCodeCommand() {
 
 
 export function registerProcessBatchInlineCodeCommand() {
+
+  function getRangers(matcher: { lineNumber: number; text: string; }[], selectedText: string) {
+    function findAllIndices(str:string, targetWord: string) {
+      let indices = [];
+      let index = str.indexOf(targetWord);
+    
+      while (index!== -1) {
+        indices.push(index);
+        index = str.indexOf(targetWord, index + 1);
+      }
+    
+      return indices;
+    }
+
+    const ranges:vscode.Range[] = [];
+
+    matcher.forEach(match => {
+      
+      const indices = findAllIndices(match.text, selectedText);
+
+      const temp = indices.map(startColNum => {
+        const endColNum = startColNum + selectedText.length;
+        const startPosition = new vscode.Position(match.lineNumber, startColNum);
+        const endPosition = new vscode.Position(match.lineNumber, endColNum);
+        const range = new vscode.Range(startPosition, endPosition);
+        return range;
+      });
+      ranges.push(...temp);
+    });
+
+    return ranges;
+  }
+
+  function getTextMatchers(document: vscode.TextDocument, selectedText: string, codeBlockRanges: number[][]) {
+    const matches = [];
+    for (let i = 0; i < document.lineCount; i++) {
+      const line = document.lineAt(i);
+      if (line.text.includes(selectedText)) {
+        matches.push({ lineNumber: i, text: line.text });
+      }
+    }
+    const allText = document.getText();
+
+    const textMatches = matches.filter(match => {
+      return !isTextInCodeBlock(match.lineNumber, codeBlockRanges) && !isTextInComment(match.text, allText) && !isTextStartWithAchor(match.text);
+    });
+
+    return textMatches;
+  }
+
+
   const batchingChange = vscode.commands.registerCommand(
     "markdown-assistant.batching",
     () => {
@@ -96,33 +156,13 @@ export function registerProcessBatchInlineCodeCommand() {
       const selectedText = document.getText(selection);
       
       if (selectedText) {
-        // 找到包含有该文本的行
-        const matches = [];
-        for (let i = 0; i < document.lineCount; i++) {
-          const line = document.lineAt(i);
-          if (line.text.includes(selectedText)) {
-            matches.push({ lineNumber: i, text: line.text });
-          }
-        }
-        const allText = document.getText();
 
-        const textMatches = matches.filter(match => {
-          return !isTextInCodeBlock(match.text, allText) && !isTextInComment(match.text, allText) && !isTextStartWithAchor(match.text);
-        });
+        const codeBlockRanges = queryCodeBlockRange(document);
 
-        const ranges = textMatches.map(match => {
+        const textMatchers = getTextMatchers(document, selectedText, codeBlockRanges);
 
-          const text = match.text;
+        const ranges = getRangers(textMatchers, selectedText);
 
-          const startColNum = text.indexOf(selectedText);
-          const endColNum = startColNum + selectedText.length;
-
-          const startPosition = new vscode.Position(match.lineNumber, startColNum);
-          const endPosition = new vscode.Position(match.lineNumber, endColNum);
-          const range = new vscode.Range(startPosition, endPosition);
-
-          return range;
-        });
 
         editor.edit(builder => {
           ranges.forEach(range => {
