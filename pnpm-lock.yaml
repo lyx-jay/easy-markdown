@@ -28,6 +28,9 @@ devDependencies:
   '@types/markdown-it-container':
     specifier: ^2.0.10
     version: 2.0.10
+  '@types/markdown-it-emoji':
+    specifier: ^3.0.1
+    version: 3.0.1
   '@types/mocha':
     specifier: ^10.0.1
     version: 10.0.1
@@ -724,6 +727,12 @@ packages:
 
   /@types/markdown-it-container@2.0.10:
     resolution: {integrity: sha512-zv+YxrlSYRq51e9kzm3orv4OvF4U79Ll1OyplNXr00o4ZC/8PukJk/jEWH7CnsMtrSWZlyv0czhz42jm9J4uLw==}
+    dependencies:
+      '@types/markdown-it': 14.1.2
+    dev: true
+
+  /@types/markdown-it-emoji@3.0.1:
+    resolution: {integrity: sha512-cz1j8R35XivBqq9mwnsrP2fsz2yicLhB8+PDtuVkKOExwEdsVBNI+ROL3sbhtR5occRZ66vT0QnwFZCqdjf3pA==}
     dependencies:
       '@types/markdown-it': 14.1.2
     dev: true
