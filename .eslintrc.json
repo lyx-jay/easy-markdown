@@ -24,6 +24,7 @@
         "package.json",
         ".eslintrc.json",
         "*.md",
-        "LICENSE"
+        "LICENSE",
+        "src/css/*.css"
     ]
 }
