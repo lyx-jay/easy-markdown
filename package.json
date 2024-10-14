@@ -3,7 +3,7 @@
   "displayName": "Markndown Assistant",
   "description": "Improve markdown writing experience",
   "repository": "https://github.com/lyx-jay/easy-markdown",
-  "version": "0.0.3",
+  "version": "0.0.4-beta.1",
   "icon": "markdown.png",
   "publisher": "lyx",
   "engines": {
