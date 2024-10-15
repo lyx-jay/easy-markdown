@@ -38,12 +38,12 @@
   },
   "scripts": {
     "vscode:prepublish": "pnpm run compile",
-    "compile": "unbuild",
+    "compile": "tsup --config ./tsup.config.ts",
     "watch": "tsc -watch -p ./",
     "pretest": "pnpm run compile && pnpm run lint",
     "lint": "eslint src --ext ts",
     "test": "node ./out/test/runTest.js",
-    "publish": "pnpm vsce publish --no-devDependencies",
+    "publish": "pnpm vsce publish --no-dependencies",
     "unit-test": "vitest ./test/**.test.ts",
     "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s && git add CHANGELOG.md",
     "prepare": "husky",
@@ -69,8 +69,8 @@
     "glob": "^8.1.0",
     "husky": "^9.1.6",
     "mocha": "^10.2.0",
-    "typescript": "^5.6.3",
-    "unbuild": "^2.0.0"
+    "tsup": "^8.3.0",
+    "typescript": "^5.6.3"
   },
   "dependencies": {
     "markdown-it-container": "^4.0.0",
