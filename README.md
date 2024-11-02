@@ -4,11 +4,18 @@ This extension is designed to enhance your Markdown writing experience. It provi
 
 [中文简介](./README_zh.md) | [English](./README.md)
 
+:::warning
+hello
+:::
+
+
+:confused:
+
 ## Features
 
-1. **Insert Space**: Adds spaces between Chinese, English, and numbers to improve text readability.
-2. **add backtick**: Adds backticks to selected text, making it a code block.
-3. **batch add backticks**: Selects any text and automatically matches the same content throughout the file, adding backticks (excluding headings, code blocks, and comments).
+1. **Insert Space**: Adds spaces `between` Chinese, English, and numbers to improve `text` readability.
+2. **add backtick**: Adds backticks to selected `text`, making it a code block.
+3. **batch add backticks**: Selects any `text` and automatically matches the same content throughout the file, adding backticks (excluding headings, code blocks, and comments).
 
 ## Usage
 
