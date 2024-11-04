@@ -20,7 +20,6 @@ const customBlockStyle = (type: ContainerType) => {
     margin: 16px 0;
     padding: 16px 16px 8px;
   `;
-  console.log(type, base + map[type]);
   return base + map[type];
 };
 

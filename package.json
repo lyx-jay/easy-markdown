@@ -45,7 +45,8 @@
     "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s && git add CHANGELOG.md && git commit -m 'chore: update changelog'",
     "prepare": "husky",
     "commitlint": "commitlint --edit",
-    "bumpp": "bumpp"
+    "bumpp": "bumpp",
+    "watch": "webpack --mode production --watch --config ./build/webpack.config.js"
   },
   "devDependencies": {
     "@commitlint/cli": "^19.5.0",
