@@ -26,9 +26,7 @@ function currentDocumentRange(doc: vscode.TextDocument) {
   return range;
 };
 
-export function registerInsertSpaceCommand() {
-
-  return vscode.commands.registerCommand("markdown-assistant.insertSpace", () => {
+export function handleInsertSpace() {
     const editor = vscode.window.activeTextEditor!;
 
     const document = editor.document;
@@ -41,8 +39,11 @@ export function registerInsertSpaceCommand() {
 
       editBuilder.replace(currentDocumentRange(document), updateContent);
     });
+}
 
-
-  });
-
+/**
+ * register insertSpace command
+ */
+export function registerInsertSpaceCommand() {
+  return vscode.commands.registerCommand("markdown-assistant.insertSpace", handleInsertSpace);
 }

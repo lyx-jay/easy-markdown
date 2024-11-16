@@ -1,6 +1,7 @@
 import * as vscode from 'vscode';
-import { registerInsertSpaceCommand } from './insert-space';
-import { registerProcessInlineCodeCommand, registerProcessBatchInlineCodeCommand } from './process-inline-code';
+// import { registerInsertSpaceCommand } from './insert-space';
+// import { registerProcessInlineCodeCommand, registerProcessBatchInlineCodeCommand } from './process-inline-code';
+import commands from './commands';
 import type MarkdownIt from 'markdown-it';
 import mdEnhance from './md-enhance';
 
@@ -17,11 +18,11 @@ export const activate = (context: vscode.ExtensionContext) => {
 	if (fileType !== 'markdown') {
 		return;
 	}
-	const commands = [
-		registerInsertSpaceCommand(),
-		registerProcessInlineCodeCommand(),
-		registerProcessBatchInlineCodeCommand()
-	];
+	// const commands = [
+	// 	registerInsertSpaceCommand(),
+	// 	registerProcessInlineCodeCommand(),
+	// 	registerProcessBatchInlineCodeCommand()
+	// ];
 	// @ts-ignore
 	context.subscriptions.push(...commands);
 
