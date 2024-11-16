@@ -82,7 +82,7 @@ function queryCodeBlockRange(document: vscode.TextDocument) {
   return res;
 }
 
-export function handleAddbacktickBatch() {
+export function handleAddbacktickBatch(word?: string) {
   // 获取当前打开的编辑窗口
   const editor = vscode.window.activeTextEditor!;
 
@@ -91,7 +91,7 @@ export function handleAddbacktickBatch() {
 
   // 如果当前有选中的文本,则只对选中的文本进行处理
   const selection = editor.selection;
-  const selectedText = document.getText(selection);
+  const selectedText = word || document.getText(selection);
 
   if (selectedText) {
     const codeBlockRanges = queryCodeBlockRange(document);
@@ -105,8 +105,8 @@ export function handleAddbacktickBatch() {
     const ranges = getRangers(textMatchers, selectedText);
 
     editor.edit((builder) => {
+      const processedText = processInlineText(selectedText);
       ranges.forEach((range) => {
-        const processedText = processInlineText(selectedText);
         builder.replace(range, processedText);
       });
     });

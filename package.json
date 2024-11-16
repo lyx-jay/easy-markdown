@@ -17,6 +17,16 @@
   ],
   "main": "./out/extension.js",
   "contributes": {
+    "configuration": {
+      "title": "markdown-assistant",
+      "properties": {
+        "markdown.dict": {
+          "type": "array",
+          "default": ["vue", "promise"],
+          "description": "Words in the array will be automatically enclosed in backticks upon saving."
+        }
+      }
+    },
     "markdown.markdownItPlugins": true,
     "commands": [
       {
@@ -32,6 +42,16 @@
       {
         "command": "markdown-assistant.insertSpace",
         "title": "Markdown Assistant: insert space",
+        "when": "editorLangId == markdown && editorTextFocus"
+      },
+      {
+        "command": "markdown-assistant.addWordToDictionary",
+        "title": "Markdown Assistant: add word to dictionary",
+        "when": "editorLangId == markdown && editorTextFocus"
+      },
+      {
+        "command": "markdown-assistant.formatMarkdown",
+        "title": "Markdown Assistant: format",
         "when": "editorLangId == markdown && editorTextFocus"
       }
     ]
