@@ -6,8 +6,7 @@ async function handleFormatMarkdown() {
   const editor = vscode.window.activeTextEditor!;
   const document = editor.document;
   const words = vscode.workspace
-    .getConfiguration()
-    .get<string[]>("markdown.dict");
+    .getConfiguration().inspect<string[]>("markdown.dict")?.globalValue;
 
   words &&
     words.forEach((word: string) => {
