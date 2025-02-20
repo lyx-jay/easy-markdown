@@ -22,8 +22,37 @@
       "properties": {
         "markdown.dict": {
           "type": "array",
-          "default": ["vue", "promise"],
+          "default": [
+            "vue",
+            "promise"
+          ],
           "description": "Words in the array will be automatically enclosed in backticks upon saving."
+        },
+        "markdownAssistant.localLLM.api": {
+          "type": "string",
+          "default": "http://localhost:8000",
+          "description": "本地大语言模型服务地址"
+        },
+        "markdownAssistant.localLLM.model": {
+          "type": "string",
+          "default": "deepseek-r1:1.5b",
+          "description": "使用的模型名称",
+          "enum": ["deepseek-r1:7b", "deepseek-r1:1.5b","chatglm3", "llama2", "qwen", "baichuan"],
+          "enumDescriptions": [
+            "Deepseek R1:7B",
+            "Deepseek R1:1.5B",
+            "ChatGLM3",
+            "Llama 2",
+            "Qwen",
+            "Baichuan"
+          ]
+        },
+        "markdownAssistant.localLLM.temperature": {
+          "type": "number",
+          "default": 0.7,
+          "minimum": 0,
+          "maximum": 2,
+          "description": "模型温度参数，越高创造性越强，越低答案越稳定"
         }
       }
     },
@@ -52,6 +81,11 @@
       {
         "command": "markdown-assistant.formatMarkdown",
         "title": "Markdown Assistant: format",
+        "when": "editorLangId == markdown && editorTextFocus"
+      },
+      {
+        "command": "markdown-assistant.translateToEnglish",
+        "title": "Markdown Assistant: translate to English (Local LLM)",
         "when": "editorLangId == markdown && editorTextFocus"
       }
     ]
@@ -93,6 +127,7 @@
     "webpack-cli": "^5.1.4"
   },
   "dependencies": {
+    "axios": "^1.7.9",
     "markdown-it-container": "^4.0.0",
     "markdown-it-emoji": "^3.0.0"
   }

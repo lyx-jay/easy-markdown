@@ -3,6 +3,7 @@ import { registerAddWordCommand } from '../core/bracktick/dictionaryBracktick';
 import { registerProcessInlineCodeCommand } from '../core/bracktick/singleBracktick';
 import { registerInsertSpaceCommand } from '../core/insertSpace/insertSpace';
 import formatMarkdown from '../core/format';
+import { registerTranslateCommandUsingLocalLLM } from '../core/translate';
 
 export default [
   /**
@@ -24,5 +25,9 @@ export default [
   /**
    * formatMarkdown
    */
-  formatMarkdown()
+  formatMarkdown(),
+  /**
+   * local LLM translate
+   */
+  registerTranslateCommandUsingLocalLLM(),
 ];
