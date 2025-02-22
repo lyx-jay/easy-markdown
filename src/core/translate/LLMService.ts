@@ -1,7 +1,7 @@
 import axios from 'axios';
 import * as fs from 'fs';
 import * as vscode from 'vscode';
-import { ProviderConfigGenerator } from '../../types/translateService';
+import { ProviderConfigGenerator } from '../../types/translate';
 import OllamaConfigGenerator from './OllamaService';
 import SiliconFlowConfigGenerator from './SiliconFlow';
 
@@ -32,6 +32,9 @@ export class LLMService {
     async translate(text: string, targetFilePath: string): Promise<void> {
         try {
             fs.writeFileSync(targetFilePath, '');
+
+            const document = await vscode.workspace.openTextDocument(targetFilePath);
+            await vscode.window.showTextDocument(document, { viewColumn: vscode.ViewColumn.Beside });
 
             const configGenerator = this.providerConfigGenerators.get(this.provider);
             if (!configGenerator) {

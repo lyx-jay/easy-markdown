@@ -26,6 +26,7 @@ export function registerTranslateCommandUsingLocalLLM() {
                 const llmService = new LLMService();
                 await llmService.translate(text, englishFile);
                 vscode.window.showInformationMessage(`翻译完成！文件已保存至: ${englishFile}`);
+
             });
         } catch (error) {
             vscode.window.showErrorMessage(`翻译失败: ${error}`);

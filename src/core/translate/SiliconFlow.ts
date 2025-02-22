@@ -1,4 +1,4 @@
-import { ProviderConfig, SiliconFlowResponse } from "../../types/translateService";
+import { ProviderConfig, SiliconFlowResponse } from "../../types/translate";
 
 export default class SiliconFlowConfigGenerator {
     generateConfig(text: string, model: string, temperature: number, apiToken?: string): ProviderConfig {

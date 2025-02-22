@@ -1,4 +1,4 @@
-import { OllamaResponse, ProviderConfig, ProviderConfigGenerator } from "../../types/translateService";
+import { OllamaResponse, ProviderConfig, ProviderConfigGenerator } from "../../types/translate";
 
 export default class OllamaConfigGenerator implements ProviderConfigGenerator {
     generateConfig(text: string, model: string, temperature: number): ProviderConfig {
