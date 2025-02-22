@@ -51,9 +51,9 @@
         },
         "markdownAssistant.LLM.model": {
           "type": "string",
-          "default": "Qwen2.5-Coder-7B-Instruct",
+          "default": "Qwen/Qwen2.5-Coder-7B-Instruct",
           "description": "使用的模型名称",
-          "enum": ["Qwen2.5-Coder-7B-Instruct"]
+          "enum": ["Qwen/Qwen2.5-Coder-7B-Instruct"]
         },
         "markdownAssistant.LLM.temperature": {
           "type": "number",

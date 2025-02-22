@@ -1,87 +1,9 @@
 import axios from 'axios';
-import * as vscode from 'vscode';
 import * as fs from 'fs';
-
-interface ModelResponse {
-    model: string;
-    created_at?: string;
-    message?: {
-        role: string;
-        content: string;
-    };
-    choices?: Array<{
-        message: {
-            content: string;
-        };
-    }>;
-    done?: boolean;
-}
-
-interface ProviderConfig {
-    url: string;
-    headers: Record<string, string>;
-    requestBody: any;
-}
-
-interface ProviderConfigGenerator {
-    generateConfig(text: string, model: string, temperature: number, apiToken?: string): ProviderConfig;
-}
-
-class OllamaConfigGenerator implements ProviderConfigGenerator {
-    generateConfig(text: string, model: string, temperature: number): ProviderConfig {
-        return {
-            url: 'http://localhost:8000',
-            headers: { 'Content-Type': 'application/json' },
-            requestBody: {
-                messages: [
-                    {
-                        role: "user",
-                        content: `${text} 将以上内容翻译为英文`
-                    }
-                ],
-                model: model,
-                temperature: temperature,
-                stream: true
-            }
-        };
-    }
-}
-
-class SiliconFlowConfigGenerator implements ProviderConfigGenerator {
-    generateConfig(text: string, model: string, temperature: number, apiToken?: string): ProviderConfig {
-        const headers: Record<string, string> = {
-            'Content-Type': 'application/json'
-        };
-        if (apiToken) {
-            headers['Authorization'] = `Bearer ${apiToken}`;
-        }
-
-        return {
-            url: 'https://api.siliconflow.cn/v1/chat/completions',
-            headers,
-            requestBody: {
-                model,
-                messages: [
-                    {
-                        role: "user",
-                        content: `${text} 将以上markdown内容翻译为英文，且保持markdown格式不变`
-                    }
-                ],
-                stream: true,
-                max_tokens: 2048,
-                stop: ["null"],
-                temperature: temperature,
-                top_p: 0.7,
-                top_k: 50,
-                frequency_penalty: 0.5,
-                n: 1,
-                response_format: {
-                    type: "text"
-                }
-            }
-        };
-    }
-}
+import * as vscode from 'vscode';
+import { ProviderConfigGenerator } from '../../types/translateService';
+import OllamaConfigGenerator from './OllamaService';
+import SiliconFlowConfigGenerator from './SiliconFlow';
 
 export class LLMService {
     private url: string;
@@ -106,14 +28,6 @@ export class LLMService {
         ]);
     }
 
-    private extractContent(response: ModelResponse): string {
-        if (response.message?.content) {
-            return response.message.content;
-        } else if (response.choices?.[0]?.message?.content) {
-            return response.choices[0].message.content;
-        }
-        throw new Error('不支持的响应格式');
-    }
 
     async translate(text: string, targetFilePath: string): Promise<void> {
         try {
@@ -125,8 +39,8 @@ export class LLMService {
             }
 
             const config = configGenerator.generateConfig(text, this.model, this.temperature, this.apiToken);
-            console.log('[info: 128]:', { config})
-            const response = await axios.post<ModelResponse>(config.url, config.requestBody, {
+            
+            const response = await axios.post(config.url, config.requestBody, {
                 responseType: 'stream',
                 headers: config.headers,
                 httpsAgent: new (require('https').Agent)({ rejectUnauthorized: false })
@@ -142,9 +56,10 @@ export class LLMService {
                             if (line.startsWith('data: ')) {
                                 jsonData = line.substring(6);
                             }
-                            const data = JSON.parse(jsonData) as ModelResponse;
+                            const data = JSON.parse(jsonData);
                             if (!data.done) {
-                                const content = this.extractContent(data);
+                                const content = configGenerator.handleResponse(data);
+
                                 if (content.includes('<think>')) {
                                     isInThinkBlock = true;
                                     continue;
