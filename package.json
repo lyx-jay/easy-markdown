@@ -28,26 +28,34 @@
           ],
           "description": "Words in the array will be automatically enclosed in backticks upon saving."
         },
-        "markdownAssistant.localLLM.api": {
+        "markdownAssistant.LLM.provider": {
           "type": "string",
-          "default": "http://localhost:8000",
-          "description": "本地大语言模型服务地址"
-        },
-        "markdownAssistant.localLLM.model": {
-          "type": "string",
-          "default": "deepseek-r1:1.5b",
-          "description": "使用的模型名称",
-          "enum": ["deepseek-r1:7b", "deepseek-r1:1.5b","chatglm3", "llama2", "qwen", "baichuan"],
+          "default": "ollama",
+          "description": "API 服务提供商",
+          "enum": ["ollama", "siliconflow"],
           "enumDescriptions": [
-            "Deepseek R1:7B",
-            "Deepseek R1:1.5B",
-            "ChatGLM3",
-            "Llama 2",
-            "Qwen",
-            "Baichuan"
+            "使用 Ollama 本地大语言模型服务",
+            "使用 SiliconFlow 在线大语言模型服务"
           ]
         },
-        "markdownAssistant.localLLM.temperature": {
+        "markdownAssistant.LLM.apiToken": {
+          "type": "string",
+          "default": "",
+          "description": "API Token，在使用在线服务时需要提供"
+        },
+        "markdownAssistant.LLM.apiUrl": {
+          "type": "string",
+          "default": "http://localhost:13144",
+          "description": "API 服务地址",
+          "enablement": "markdownAssistant.LLM.provider == 'ollama'"
+        },
+        "markdownAssistant.LLM.model": {
+          "type": "string",
+          "default": "Qwen2.5-Coder-7B-Instruct",
+          "description": "使用的模型名称",
+          "enum": ["Qwen2.5-Coder-7B-Instruct"]
+        },
+        "markdownAssistant.LLM.temperature": {
           "type": "number",
           "default": 0.7,
           "minimum": 0,
@@ -65,16 +73,6 @@
       },
       {
         "command": "markdown-assistant.batching",
-        "title": "Markdown Assistant: add batch backtick",
-        "when": "editorLangId == markdown && editorTextFocus"
-      },
-      {
-        "command": "markdown-assistant.insertSpace",
-        "title": "Markdown Assistant: insert space",
-        "when": "editorLangId == markdown && editorTextFocus"
-      },
-      {
-        "command": "markdown-assistant.addWordToDictionary",
         "title": "Markdown Assistant: add word to dictionary",
         "when": "editorLangId == markdown && editorTextFocus"
       },

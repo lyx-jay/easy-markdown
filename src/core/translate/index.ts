@@ -1,7 +1,6 @@
 import * as vscode from 'vscode';
-import { LocalLLMService } from './localLLMService';
+import { LLMService } from './LLMService';
 import * as path from 'path';
-import * as fs from 'fs';
 
 export function registerTranslateCommandUsingLocalLLM() {
     return vscode.commands.registerCommand('markdown-assistant.translateToEnglish', async () => {
@@ -24,7 +23,7 @@ export function registerTranslateCommandUsingLocalLLM() {
                 title: "正在翻译文档...",
                 cancellable: false
             }, async (progress) => {
-                const llmService = new LocalLLMService();
+                const llmService = new LLMService();
                 await llmService.translate(text, englishFile);
                 vscode.window.showInformationMessage(`翻译完成！文件已保存至: ${englishFile}`);
             });
