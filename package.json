@@ -83,7 +83,7 @@
       },
       {
         "command": "markdown-assistant.translateToEnglish",
-        "title": "Markdown Assistant: translate to English (Local LLM)",
+        "title": "Markdown Assistant: translate to English",
         "when": "editorLangId == markdown && editorTextFocus"
       }
     ]

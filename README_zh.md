@@ -11,6 +11,7 @@
 3. **批量添加反引号**：选择任意文本，自动匹配整个文件中相同的内容，添加反引号（不包括标题、代码块和注释）。
 4. **支持待办事项复选框**
 5. **支持词典**：添加到词典中的单词，在调用“format”命令时会自动添加反引号。
+6. **翻译功能**：使用大模型翻译能力将文章翻译为英文
 
 ## 使用
 
@@ -19,7 +20,8 @@
 1. **插入空格**：Markdown Assistant: insert space
 2. **添加反引号**：Markdown Assistant: add single backtick
 3. **批量添加反引号**：Markdown Assistant: add batch backticks
-4. **格式化**：Markdown Assistant: f
+4. **格式化**：Markdown Assistant: format
+5. **翻译**: Markdown Assistant: translate to English
 
 ## 贡献
 

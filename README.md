@@ -11,6 +11,7 @@ This extension is designed to enhance your Markdown writing experience. It provi
 3. **batch add backticks**: Selects any `text` and automatically matches the same content throughout the file, adding backticks (excluding headings, code blocks, and comments).
 4. **support todo checkbox**
 5. **support dictionary**: Words added to the dictionary will automatically have backticks added when the "format" command is called.
+6. **translation**: Use large model translation capabilities to translate the article into English.
 
 ## Usage
 
@@ -20,6 +21,7 @@ This extension is designed to enhance your Markdown writing experience. It provi
 2. **add backtick**: Markdown Assistant: add single backtick
 3. **batch add backticks**: Markdown Assistant: add batch backticks
 4. **format**: Markdown Assistant: format
+5. **translate**: Markdown Assistant: translate to English
 
 ## Contribution
 
