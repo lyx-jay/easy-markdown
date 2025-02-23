@@ -1,3 +1,15 @@
+## [0.0.8](https://github.com/lyx-jay/easy-markdown/compare/v0.0.7...v0.0.8) (2025-02-23)
+
+
+### Features
+
+* 翻译时行为交互 ([33d02f2](https://github.com/lyx-jay/easy-markdown/commit/33d02f27b193a6462e11bcbe17a379b55879be15))
+* 重构翻译类 ([0f3b0a1](https://github.com/lyx-jay/easy-markdown/commit/0f3b0a1064f57d13594324a94fc3a027e615932f))
+* support translate feature ([516e3f3](https://github.com/lyx-jay/easy-markdown/commit/516e3f32a57427ed3135f166485b503177e12a02))
+* support translate using local LLM ([666116b](https://github.com/lyx-jay/easy-markdown/commit/666116b0114ca8c8cd305dad5ca9ec13fe4a8127))
+
+
+
 ## [0.0.7](https://github.com/lyx-jay/easy-markdown/compare/v0.0.6...v0.0.7) (2024-11-17)
 
 
