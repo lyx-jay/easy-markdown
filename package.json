@@ -67,12 +67,22 @@
     "markdown.markdownItPlugins": true,
     "commands": [
       {
+        "command": "markdown-assistant.insertSpace",
+        "title": "Markdown Assistant: insert space",
+        "when": "editorLangId == markdown && editorTextFocus"
+      },
+      {
         "command": "markdown-assistant.single",
         "title": "Markdown Assistant: add single backtick",
         "when": "editorLangId == markdown && editorTextFocus"
       },
       {
         "command": "markdown-assistant.batching",
+        "title": "Markdown Assistant: add batch backticks",
+        "when": "editorLangId == markdown && editorTextFocus"
+      },
+      {
+        "command": "markdown-assistant.addWordToDictionary",
         "title": "Markdown Assistant: add word to dictionary",
         "when": "editorLangId == markdown && editorTextFocus"
       },
